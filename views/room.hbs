@@ -1,3 +1,25 @@
 <section>
   <h1>Room 1234</h1>
+  <div id="timer"></div>
+  <button id="toggleTimer">Start</button>
 </section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+ var socket = io.connect('/')
+ var timer = document.querySelector('#timer')
+ var toggle = document.querySelector('#toggleTimer')
+
+ socket.on('new-user', function (data) {
+   console.log(data)
+
+   toggle.addEventListener('click', function () {
+     timer.innerHTML = data.currentTime
+     socket.emit('start-timer')
+
+     socket.on('time-ended', function (data) {
+       console.log(data)
+     })
+   })
+ })
+</script>
