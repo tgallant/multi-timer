@@ -10,7 +10,7 @@ module.exports = function (server, rooms) {
     socket.on('start-timer', function (id) {
       const timerId = setInterval(function () {
         state.curerntTime -= 1
-        if (state.curerntTime <= 0) {
+        if (state.currentTime <= 0) {
           socket.emit('time-ended', state)
           clearInterval(timerId)
         }
