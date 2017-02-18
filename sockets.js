@@ -1,5 +1,5 @@
 const socket = require('socket.io')
-const state = { curerntTime: 30 }
+const state = { currentTime: 30 }
 module.exports = function (server, rooms) {
   const io = socket(server)
   io.on('connection', function (socket) {
