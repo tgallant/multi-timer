@@ -1,4 +1,5 @@
 const express = require('express')
+const hbs = require('hbs')
 const path = require('path')
 // const favicon = require('serve-favicon')
 const logger = require('morgan')
@@ -13,6 +14,7 @@ const app = express()
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
+hbs.registerPartials(path.join(__dirname, 'views/partials'))
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
