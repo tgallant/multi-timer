@@ -1,0 +1,10 @@
+connection -> welcome
+timer-start
+next-timer
+time-ended
+------------
+state: {
+    timers: {
+        
+    }
+}
