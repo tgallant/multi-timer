@@ -1,10 +1,5 @@
 connection -> welcome
+new-user
 timer-start
 next-timer
 time-ended
-------------
-state: {
-    timers: {
-        
-    }
-}

@@ -1,9 +1,20 @@
-module.exports = function (server) {
-  const io = require('socket.io')(server)
+const socket = require('socket.io')
+const state = { curerntTime: 30 }
+module.exports = function (server, rooms) {
+  const io = socket(server)
   io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' })
-    socket.on('my other event', function (data) {
-      console.log(data)
+    // const id = 0
+    // socket.emit('welcome', id)
+    socket.emit('new-user', state)
+    socket.broadcast.emit('new-user', state)
+    socket.on('start-timer', function (id) {
+      const timerId = setInterval(function () {
+        state.curerntTime -= 1
+        if (state.curerntTime <= 0) {
+          socket.emit('time-ended', state)
+          clearInterval(timerId)
+        }
+      }, 1000)
     })
   })
 }
