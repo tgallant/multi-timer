@@ -11,18 +11,19 @@
  var timer = document.querySelector('#timer')
  var toggle = document.querySelector('#toggleTimer')
 
- socket.on('new-user', function (data) {
+ toggle.addEventListener('click', function () {
+   socket.emit('start-timer')
+   room.classList.remove('timeEnded')
+ })
+
+ socket.on('time-ended', function (data) {
+   room.classList.add('timeEnded')
+   timer.innerHTML = data.currentTime
    console.log(data)
+ })
 
-   toggle.addEventListener('click', function () {
-     timer.innerHTML = data.currentTime
-     socket.emit('start-timer')
-
-     socket.on('time-ended', function (data) {
-       console.log(data)
-
-       room.classList.toggle('timeEnded')
-     })
-   })
+ socket.on('new-user', function (data) {
+   timer.innerHTML = data.currentTime
+   console.log(data)
  })
 </script>
