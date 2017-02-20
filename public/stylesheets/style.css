@@ -12,3 +12,28 @@ body {
 a {
   color: #00B7FF;
 }
+
+.content {
+  padding: 16px;
+}
+
+.header {
+  align-items: center;
+  background: #E3F2FD;
+  display: flex;
+  height: 50px;
+}
+
+.header li {
+  display: inline-block;
+  list-style: none;
+  padding-left: 16px;
+}
+
+.header li a {
+  text-decoration: none;
+}
+
+.header li a:hover {
+  text-decoration: underline;
+}
