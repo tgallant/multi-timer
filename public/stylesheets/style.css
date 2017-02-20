@@ -37,3 +37,7 @@ a {
 .header li a:hover {
   text-decoration: underline;
 }
+
+.timeEnded #timer {
+  color: #F44336;
+}
