@@ -41,3 +41,8 @@ a {
 .timeEnded #timer {
   color: #F44336;
 }
+#timer-host {
+  padding: 10px;
+  border: solid black 5px;
+  display: inline-block;
+}

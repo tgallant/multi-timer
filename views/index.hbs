@@ -1,4 +1,67 @@
-<section class="index">
-  <h1>Multi-Timer</h1>
-  <p>Welcome to Multi-Timer</p>
-</section>
+<h1>Multi-Timer</h1>
+<form action="#" id="set-time-form">
+  <fieldset>
+    hours: <input type="number" placeholder="hours" name="hours" value="0"> minutes: <input type="number" placeholder="minutes"
+      name="minutes" value="30"> seconds: <input type="number" placeholder="seconds" name="seconds" value="0">
+    <br><br> number of players: <input type="number" name="numberOfPlayers" placeholder="number of players" value="2">
+    <br>
+    <br><button>Start game</button>
+  </fieldset>
+</form>
+<br>
+<div id="timer-host">
+  <span id="player-name"></span>
+  <span id="time">00:00:00</span>
+</div>
+
+<script>
+  function templateTime(timeInSeconds) {
+    const hours = Math.floor(timeInSeconds / 3600)
+    const minutes = Math.floor((timeInSeconds % 3600) / 60)
+    const seconds = (timeInSeconds % 3600) % 60
+    const hs = hours < 10 ? `0${hours}` : `${hours}`
+    const ms = minutes < 10 ? `0${minutes}` : `${minutes}`
+    const ss = seconds < 10 ? `0${seconds}` : `${seconds}`
+    return `${hs}:${ms}:${ss}`
+  }
+  document.querySelector('#set-time-form')
+    .addEventListener('submit', function (e) {
+      e.preventDefault()
+      this.childNodes[1].disabled = true
+      const seconds = Number(this.elements['seconds'].value)
+      const minutes = Number(this.elements['minutes'].value)
+      const hours = Number(this.elements['hours'].value)
+      const players = Number(this.elements['numberOfPlayers'].value)
+      const model = (function make_model() {
+        const gameTime = seconds + minutes * 60 + hours * 3600
+        let arr = []
+        for (let i = 0; i < players; i++) {
+          arr[i] = gameTime
+        }
+        return {
+          clocks: arr,
+          currentPlayer: 0
+        }
+      }())
+
+      function init() {
+        const host = document.querySelector('#timer-host')
+        const playerName = document.querySelector('#player-name')
+        host.addEventListener('click', function () {
+          model.currentPlayer = (model.currentPlayer + 1) % model.clocks.length
+          playerName.innerHTML = "Player " + String(model.currentPlayer + 1)
+        })
+
+        const timer = document.querySelector('#time')
+
+        timer.innerHTML = templateTime(model.clocks[0])
+        setInterval(function () {
+          if (model.clocks[model.currentPlayer] <= 0) return
+          model.clocks[model.currentPlayer] -= 1
+          timer.innerHTML = templateTime(model.clocks[model.currentPlayer])
+        }, 1000)
+      }
+      init()
+    })
+
+</script>
